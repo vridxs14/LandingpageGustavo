@@ -141,7 +141,7 @@ const Header: React.FC = () => {
   }, [isOpen]);
 
   return (
-    <header className={`fixed w-full z-50 transition-all duration-300 ${scrolled || isOpen ? 'bg-brand-dark/95 backdrop-blur-md border-b border-white/10' : 'bg-transparent'}`}>
+    <header className={`fixed w-full z-50 transition-all duration-300 ${scrolled || isOpen ? 'bg-[#09090b] border-b border-white/10' : 'bg-transparent'}`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-20">
           {/* Logo */}
@@ -179,7 +179,7 @@ const Header: React.FC = () => {
 
       {/* Mobile Nav Overlay */}
       <div
-        className={`md:hidden fixed inset-0 top-20 bg-brand-dark/95 backdrop-blur-xl border-t border-white/5 transition-all duration-300 ease-in-out ${isOpen ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-full pointer-events-none'
+        className={`md:hidden fixed inset-0 top-20 bg-[#09090b] border-t border-white/10 transition-all duration-300 ease-in-out ${isOpen ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-full pointer-events-none'
           }`}
       >
         <div className="flex flex-col items-center justify-center h-[calc(100vh-5rem)] space-y-8 p-6">
