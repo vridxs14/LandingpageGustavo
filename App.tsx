@@ -168,26 +168,34 @@ const Header: React.FC = () => {
         </div>
       </div>
 
-      {/* Mobile Nav */}
-      {isOpen && (
-        <div className="md:hidden bg-zinc-900 absolute w-full border-b border-white/10">
-          <div className="px-4 pt-2 pb-6 space-y-2">
-            {NAV_ITEMS.map((item) => (
-              <a
-                key={item.label}
-                href={item.href}
-                onClick={() => setIsOpen(false)}
-                className="block px-3 py-4 text-base font-bold text-gray-300 hover:text-brand-purple hover:bg-white/5 rounded-md"
-              >
-                {item.label}
-              </a>
-            ))}
-            <a href="#planos" onClick={() => setIsOpen(false)} className="block w-full text-center mt-4 bg-brand-purple text-white font-bold py-3 rounded-md">
+      {/* Mobile Nav Overlay */}
+      <div
+        className={`md:hidden fixed inset-0 top-20 bg-brand-dark/95 backdrop-blur-xl border-t border-white/5 transition-all duration-300 ease-in-out ${isOpen ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-full pointer-events-none'
+          }`}
+      >
+        <div className="flex flex-col items-center justify-center h-[calc(100vh-5rem)] space-y-8 p-6">
+          {NAV_ITEMS.map((item) => (
+            <a
+              key={item.label}
+              href={item.href}
+              onClick={() => setIsOpen(false)}
+              className="text-2xl font-heading font-bold uppercase tracking-wider text-gray-300 hover:text-brand-purple transition-colors"
+            >
+              {item.label}
+            </a>
+          ))}
+
+          <div className="w-full max-w-xs pt-8 border-t border-white/10 mt-4">
+            <a
+              href="#planos"
+              onClick={() => setIsOpen(false)}
+              className="block w-full text-center bg-brand-purple text-white font-bold py-4 rounded-lg text-lg hover:bg-brand-purple/90 transition-all shadow-[0_0_20px_rgba(176,38,255,0.3)]"
+            >
               QUERO COMEÇAR
             </a>
           </div>
         </div>
-      )}
+      </div>
     </header>
   );
 };
