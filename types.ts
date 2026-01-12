@@ -1,3 +1,5 @@
+import React from 'react';
+
 export interface NavItem {
   label: string;
   href: string;
@@ -28,4 +30,8 @@ export interface Plan {
   period: string;
   features: string[];
   recommended?: boolean;
+  description?: string;
+  tag?: string;
+  image?: string;
+  checkoutUrl?: string;
 }

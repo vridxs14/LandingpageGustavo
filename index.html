@@ -1,65 +1,65 @@
 <!DOCTYPE html>
 <html lang="pt-BR" class="scroll-smooth">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Gustavo Consignani | Consultoria Esportiva</title>
-    <meta name="description" content="Pare de adivinhar seu treino. Tenha a estratégia de um especialista para alcançar seus objetivos.">
-    
-    <!-- Google Fonts: Inter for UI, Oswald for Headings -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Oswald:wght@500;700&display=swap" rel="stylesheet">
-    
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-      tailwind.config = {
-        theme: {
-          extend: {
-            fontFamily: {
-              sans: ['Inter', 'sans-serif'],
-              heading: ['Oswald', 'sans-serif'],
-            },
-            colors: {
-              brand: {
-                green: '#a3e635', // lime-400
-                dark: '#09090b', // zinc-950
-                gray: '#27272a', // zinc-800
-              }
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gustavo Consignani | Consultoria Esportiva</title>
+  <meta name="description"
+    content="Pare de adivinhar seu treino. Tenha a estratégia de um especialista para alcançar seus objetivos.">
+
+  <!-- Google Fonts: Inter for UI, Oswald for Headings -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Oswald:wght@500;700&display=swap"
+    rel="stylesheet">
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            heading: ['Oswald', 'sans-serif'],
+          },
+          colors: {
+            brand: {
+              purple: '#b026ff', // neon purple
+              dark: '#09090b', // zinc-950
+              gray: '#27272a', // zinc-800
             }
           }
         }
       }
-    </script>
-    <style>
-      /* Custom Scrollbar */
-      ::-webkit-scrollbar {
-        width: 8px;
-      }
-      ::-webkit-scrollbar-track {
-        background: #09090b;
-      }
-      ::-webkit-scrollbar-thumb {
-        background: #3f3f46;
-        border-radius: 4px;
-      }
-      ::-webkit-scrollbar-thumb:hover {
-        background: #a3e635;
-      }
-    </style>
-  <script type="importmap">
-{
-  "imports": {
-    "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
-    "react/": "https://esm.sh/react@^19.2.3/",
-    "react": "https://esm.sh/react@^19.2.3",
-    "lucide-react": "https://esm.sh/lucide-react@^0.562.0"
-  }
-}
-</script>
+    }
+  </script>
+  <style>
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: #09090b;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: #3f3f46;
+      border-radius: 4px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: #b026ff;
+    }
+  </style>
+  <script type="module" src="/index.tsx"></script>
 </head>
-  <body class="bg-brand-dark text-white antialiased selection:bg-brand-green selection:text-brand-dark">
-    <div id="root"></div>
-  </body>
+
+<body class="bg-brand-dark text-white antialiased selection:bg-brand-purple selection:text-white">
+  <div id="root"></div>
+</body>
+
 </html>

@@ -1,20 +1,25 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
-</div>
+# Landing Page Gustavo Consignani
 
-# Run and deploy your AI Studio app
+Este projeto é uma landing page desenvolvida com React, TypeScript e Vite.
 
-This contains everything you need to run your app locally.
+## Como carregar o site
 
-View your app in AI Studio: https://ai.studio/apps/drive/1Tz6VnJdwe_syQin1jjn15vNcVJatMxYN
+Para abrir este site no seu computador, você precisa ter o **Node.js** instalado. O navegador sozinho não consegue ler os arquivos `.tsx` diretamente.
 
-## Run Locally
+### Passo 1: Instalar o Node.js
+Se você ainda não tem, baixe e instale a versão **LTS** do Node.js aqui:
+👉 [Download Node.js](https://nodejs.org/en/download/)
 
-**Prerequisites:**  Node.js
+### Passo 2: Instalar dependências
+Abra o terminal na pasta do projeto e execute:
+```bash
+npm install
+```
 
+### Passo 3: Rodar o projeto
+Ainda no terminal, execute:
+```bash
+npm run dev
+```
 
-1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`
+O terminal irá mostrar um link (geralmente `http://localhost:5173`). Clique nele ou copie para o seu navegador para ver o site funcionando.
