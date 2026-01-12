@@ -532,16 +532,27 @@ const Footer: React.FC = () => {
 };
 
 const App: React.FC = () => {
-  // const [selectedPlan, setSelectedPlan] = useState<Plan | null>(null); // Unused
-  // const [view, setView] = useState<'LANDING' | 'CHECKOUT' | 'PAYMENT'>('LANDING'); // Unused
+  const [selectedPlan, setSelectedPlan] = useState<Plan | null>(null);
+  const [view, setView] = useState<'LANDING' | 'CHECKOUT' | 'PAYMENT'>('LANDING');
 
   const handleSelectPlan = (plan: Plan) => {
-    if (plan.checkoutUrl) {
-      window.open(plan.checkoutUrl, '_blank');
+    setSelectedPlan(plan);
+    setView('CHECKOUT');
+    window.scrollTo(0, 0);
+  };
+
+  const handleBackToLanding = () => {
+    setSelectedPlan(null);
+    setView('LANDING');
+  };
+
+  const handleSubscribe = () => {
+    if (selectedPlan && selectedPlan.checkoutUrl) {
+      window.open(selectedPlan.checkoutUrl, '_blank');
     }
   };
 
-  /* 
+  /*
   // Internal Flow Disabled
   const handeBackToLanding = () => {
     setSelectedPlan(null);
@@ -558,6 +569,16 @@ const App: React.FC = () => {
     setSelectedPlan(null);
   };
   */
+
+  if (view === 'CHECKOUT' && selectedPlan) {
+    return (
+      <Checkout
+        plan={selectedPlan}
+        onBack={handleBackToLanding}
+        onSubscribe={handleSubscribe}
+      />
+    );
+  }
 
   return (
     <div className="min-h-screen bg-brand-dark text-white font-sans selection:bg-brand-purple selection:text-white">
