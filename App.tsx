@@ -68,7 +68,7 @@ const PLANS: Plan[] = [
     period: '/mês',
     features: ['Plano de Treino Personalizado', 'Acesso ao App', 'Suporte via Chat', 'Ajustes Mensais'],
     recommended: false,
-    checkoutUrl: 'https://pay.kiwify.com.br/SEU_LINK_AQUI_TRIMESTRAL' // Substitua pelo link real
+    checkoutUrl: 'https://link.mercadopago.com.br/testegustavolima'
   },
   {
     name: 'Semestral',
@@ -76,7 +76,7 @@ const PLANS: Plan[] = [
     period: '/mês',
     features: ['Tudo do Plano Trimestral', 'Análise de Movimento por Vídeo', 'Prioridade no Suporte', 'Guia de Suplementação'],
     recommended: true,
-    checkoutUrl: 'https://pay.kiwify.com.br/SEU_LINK_AQUI_SEMESTRAL' // Substitua pelo link real
+    checkoutUrl: 'https://link.mercadopago.com.br/testegustavolima'
   },
   {
     name: 'Anual',
@@ -84,7 +84,7 @@ const PLANS: Plan[] = [
     period: '/mês',
     features: ['Tudo do Plano Semestral', 'Maior Economia', 'Consultoria de Nutrição (Bônus)', 'Acesso Vitalício ao Grupo VIP'],
     recommended: false,
-    checkoutUrl: 'https://pay.kiwify.com.br/SEU_LINK_AQUI_ANUAL' // Substitua pelo link real
+    checkoutUrl: 'https://link.mercadopago.com.br/testegustavolima'
   }
 ];
 
@@ -532,15 +532,17 @@ const Footer: React.FC = () => {
 };
 
 const App: React.FC = () => {
-  const [selectedPlan, setSelectedPlan] = useState<Plan | null>(null);
-  const [view, setView] = useState<'LANDING' | 'CHECKOUT' | 'PAYMENT'>('LANDING');
+  // const [selectedPlan, setSelectedPlan] = useState<Plan | null>(null); // Unused
+  // const [view, setView] = useState<'LANDING' | 'CHECKOUT' | 'PAYMENT'>('LANDING'); // Unused
 
   const handleSelectPlan = (plan: Plan) => {
-    setSelectedPlan(plan);
-    setView('CHECKOUT');
-    window.scrollTo(0, 0);
+    if (plan.checkoutUrl) {
+      window.open(plan.checkoutUrl, '_blank');
+    }
   };
 
+  /* 
+  // Internal Flow Disabled
   const handeBackToLanding = () => {
     setSelectedPlan(null);
     setView('LANDING');
@@ -555,26 +557,7 @@ const App: React.FC = () => {
     setView('LANDING');
     setSelectedPlan(null);
   };
-
-  if (view === 'CHECKOUT' && selectedPlan) {
-    return (
-      <Checkout
-        plan={selectedPlan}
-        onBack={handeBackToLanding}
-        onSubscribe={handleGoToPayment}
-      />
-    );
-  }
-
-  if (view === 'PAYMENT' && selectedPlan) {
-    return (
-      <Payment
-        plan={selectedPlan}
-        onBack={() => setView('CHECKOUT')}
-        onSuccess={handlePaymentSuccess}
-      />
-    );
-  }
+  */
 
   return (
     <div className="min-h-screen bg-brand-dark text-white font-sans selection:bg-brand-purple selection:text-white">
