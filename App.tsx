@@ -267,23 +267,36 @@ const Hero: React.FC = () => {
 const ProblemSolution: React.FC = () => {
   return (
     <Section id="sobre" className="bg-brand-dark">
+      {/* Mobile Header: Title + Intro only */}
+      <div className="md:hidden mb-8">
+        <h2 className="font-heading text-3xl font-bold uppercase mb-6 text-white">
+          Gustavo <span className="text-brand-purple">Consignani</span>
+        </h2>
+        <p className="text-gray-300 leading-relaxed">
+          Muito prazer! Sou formado em Educação Física e Especialista em Treinamento Esportivo.
+          Minha missão vai além de passar exercícios: eu transformo vidas através de resultados reais e sustentáveis.
+        </p>
+      </div>
+
       <div className="grid md:grid-cols-2 gap-12 md:gap-24 items-center">
-        <div className="relative order-2 md:order-1">
+        <div className="relative">
           <div className="absolute -inset-4 bg-brand-purple/20 rounded-xl blur-xl"></div>
           <img
             src="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?q=80&w=2070&auto=format&fit=crop"
             alt="Gustavo Consignani Personal Trainer"
-            className="relative rounded-xl shadow-2xl border border-white/10 grayscale hover:grayscale-0 transition-all duration-500"
+            className="relative rounded-xl shadow-2xl border border-white/10 grayscale hover:grayscale-0 transition-all duration-500 w-full"
           />
         </div>
 
-        <div className="order-1 md:order-2">
-          <h2 className="font-heading text-3xl md:text-5xl font-bold uppercase mb-6 text-white">
+        <div>
+          {/* Desktop Title */}
+          <h2 className="font-heading text-3xl md:text-5xl font-bold uppercase mb-6 text-white hidden md:block">
             Gustavo <span className="text-brand-purple">Consignani</span>
           </h2>
 
           <div className="space-y-6 text-gray-300 leading-relaxed">
-            <p>
+            {/* Desktop Intro */}
+            <p className="hidden md:block">
               Muito prazer! Sou formado em Educação Física e Especialista em Treinamento Esportivo.
               Minha missão vai além de passar exercícios: eu transformo vidas através de resultados reais e sustentáveis.
             </p>
