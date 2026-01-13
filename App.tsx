@@ -3,6 +3,7 @@ import { Menu, X, Check, Star, ChevronDown, ChevronUp, ArrowRight, Instagram, Me
 import { Button } from './components/Button';
 import { Section } from './components/Section';
 import { NavItem, Benefit, Testimonial, FAQItem, Plan } from './types';
+import gustavoImage from './assets/gustavo.jpg';
 
 // --- DATA CONSTANTS ---
 
@@ -282,7 +283,7 @@ const ProblemSolution: React.FC = () => {
           <div className="absolute -inset-4 bg-brand-purple/20 rounded-xl blur-xl"></div>
           <div className="relative">
             <img
-              src="/assets/gustavo.jpg"
+              src={gustavoImage}
               alt="Gustavo Consignani Personal Trainer"
               className="relative rounded-xl shadow-2xl border border-white/10 transition-all duration-500 w-full aspect-[3/4] object-cover"
             />
