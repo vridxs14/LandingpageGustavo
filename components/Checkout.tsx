@@ -6,11 +6,13 @@ import { Button } from './Button';
 interface CheckoutProps {
     plan: Plan;
     onBack: () => void;
-    onSubscribe: () => void;
+    onSubscribe: (method: 'CARD' | 'PIX') => void;
 }
 
 export const Checkout: React.FC<CheckoutProps> = ({ plan, onBack, onSubscribe }) => {
     const [showPolicy, setShowPolicy] = useState(false);
+
+    const [paymentMethod, setPaymentMethod] = useState<'CARD' | 'PIX'>('PIX');
 
     const getValidityPeriod = (planName: string) => {
         const name = planName.toLowerCase();
@@ -20,7 +22,21 @@ export const Checkout: React.FC<CheckoutProps> = ({ plan, onBack, onSubscribe })
         return '30 dias';
     };
 
+    const getInstallments = (planName: string, price: string) => {
+        const numericPrice = parseFloat(price.replace(',', '.'));
+        const name = planName.toLowerCase();
+        let installments = 1;
+
+        if (name.includes('60 dias')) installments = 2;
+        if (name.includes('120 dias')) installments = 4;
+        if (name.includes('180 dias')) installments = 6;
+
+        const installmentValue = (numericPrice / installments).toFixed(2).replace('.', ',');
+        return { count: installments, value: installmentValue };
+    };
+
     const validityDays = getValidityPeriod(plan.name);
+    const installments = getInstallments(plan.name, plan.price);
 
     return (
         <div className="min-h-screen bg-brand-dark text-white pt-6 pb-12 md:pt-20">
@@ -59,10 +75,61 @@ export const Checkout: React.FC<CheckoutProps> = ({ plan, onBack, onSubscribe })
                                 <span className="text-gray-500">(Evolution)</span>
                             </h1>
 
-                            <div className="flex items-baseline gap-2 mb-8 border-b border-white/10 pb-8">
-                                <span className="text-gray-400 text-lg">R$</span>
-                                <span className="text-5xl font-bold text-white tracking-tighter">{plan.price}</span>
-                                <span className="text-gray-500 text-sm font-medium">{plan.period === '/mês' ? '/ mês' : '/ total do período'}</span>
+                            {/* Payment Method Selector */}
+                            <div className="mb-6">
+                                <label className="block text-sm font-bold text-gray-400 mb-3 uppercase tracking-wider">Como deseja pagar?</label>
+                                <div className="grid grid-cols-2 gap-3">
+                                    <button
+                                        onClick={() => setPaymentMethod('CARD')}
+                                        className={`p-3 rounded-lg border text-sm font-bold transition-all ${paymentMethod === 'CARD'
+                                            ? 'bg-brand-purple text-white border-brand-purple shadow-lg shadow-brand-purple/20'
+                                            : 'bg-transparent text-gray-400 border-white/10 hover:border-white/30'
+                                            }`}
+                                    >
+                                        CARTÃO DE CRÉDITO
+                                    </button>
+                                    <button
+                                        onClick={() => setPaymentMethod('PIX')}
+                                        className={`p-3 rounded-lg border text-sm font-bold transition-all ${paymentMethod === 'PIX'
+                                            ? 'bg-green-500 text-white border-green-500 shadow-lg shadow-green-500/20'
+                                            : 'bg-transparent text-gray-400 border-white/10 hover:border-white/30'
+                                            }`}
+                                    >
+                                        PIX (DESCONTO)
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div className="mb-8 border-b border-white/10 pb-8">
+                                {paymentMethod === 'CARD' ? (
+                                    <>
+                                        {/* Installments as primary display */}
+                                        <div className="flex items-baseline gap-2">
+                                            <span className="text-gray-400 text-lg">{installments.count}x</span>
+                                            <span className="text-5xl font-bold text-white tracking-tighter">R$ {installments.value}</span>
+                                            <span className="text-gray-500 text-sm font-medium">sem juros</span>
+                                        </div>
+                                        <div className="mt-2 text-base font-medium text-gray-400">
+                                            ou R$ {plan.price} à vista
+                                        </div>
+                                    </>
+                                ) : (
+                                    <>
+                                        {/* Pix Price as primary display */}
+                                        <div className="flex items-baseline gap-2">
+                                            <span className="text-gray-400 text-lg">R$</span>
+                                            <span className="text-5xl font-bold text-green-400 tracking-tighter">
+                                                {plan.pixPrice}
+                                            </span>
+                                            <span className="text-gray-500 text-sm font-medium">{plan.period === '/mês' ? '/ mês' : '/ total'}</span>
+                                        </div>
+                                        {plan.pixPrice && (
+                                            <div className="mt-2 text-base font-medium text-green-400 bg-green-400/10 py-1.5 px-4 rounded-md w-fit animate-pulse">
+                                                Desconto aplicado!
+                                            </div>
+                                        )}
+                                    </>
+                                )}
                             </div>
 
                             <p className="text-gray-300 leading-relaxed mb-8 text-lg">
@@ -92,9 +159,9 @@ export const Checkout: React.FC<CheckoutProps> = ({ plan, onBack, onSubscribe })
                             <Button
                                 fullWidth
                                 className="h-16 text-lg mb-6"
-                                onClick={onSubscribe}
+                                onClick={() => onSubscribe(paymentMethod)}
                             >
-                                ADICIONAR AO CARRINHO
+                                IR PARA O PAGAMENTO
                             </Button>
 
                             <div className="flex items-center justify-center gap-2 text-xs text-gray-500 mb-8">

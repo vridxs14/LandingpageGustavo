@@ -34,4 +34,5 @@ export interface Plan {
   tag?: string;
   image?: string;
   checkoutUrl?: string;
+  pixPrice?: string;
 }

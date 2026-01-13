@@ -17,14 +17,14 @@ const NAV_ITEMS: NavItem[] = [
 const HOW_IT_WORKS_STEPS = [
   {
     number: '01',
-    title: 'Cadastro & Compra',
-    description: 'Tudo começa com seu cadastro seguro aqui no site. Ele é necessário para liberar a compra e garantir que você tenha acesso à área de membros futuramente.',
+    title: 'Escolha & Compra',
+    description: 'Tudo começa com a escolha do seu plano. O pagamento é realizado em ambiente 100% seguro. Após a confirmação, você receberá as instruções para os próximos passos.',
     icon: Lock
   },
   {
     number: '02',
     title: 'Anamnese Completa',
-    description: 'Após o pagamento, você preenche a ficha técnica e envia suas fotos. É aqui que eu entendo suas lesões, rotina e o que você realmente quer mudar no seu corpo.',
+    description: 'Após o pagamento, você preenche a ficha técnica e envia suas fotos. É aqui que eu entendo seu objetivo, rotina, possíveis lesões e planejo a estratégia do seu protocolo.',
     icon: ClipboardList
   },
   {
@@ -67,26 +67,29 @@ const TESTIMONIALS: Testimonial[] = [
 
 const PLANS: Plan[] = [
   {
-    name: 'Trimestral',
-    price: '129,90',
-    period: '/mês',
+    name: '60 DIAS',
+    price: '165,00',
+    pixPrice: '150,00',
+    period: '/total',
     features: ['Plano de Treino Personalizado', 'Acesso ao App', 'Suporte via Chat', 'Ajustes Mensais'],
     recommended: false,
     checkoutUrl: 'https://link.mercadopago.com.br/testegustavolima'
   },
   {
-    name: 'Semestral',
-    price: '99,90',
-    period: '/mês',
-    features: ['Tudo do Plano Trimestral', 'Análise de Movimento por Vídeo', 'Prioridade no Suporte', 'Guia de Suplementação'],
+    name: '120 DIAS',
+    price: '315,00',
+    pixPrice: '280,00',
+    period: '/total',
+    features: ['Tudo do Plano de 60 Dias', 'Análise de Movimento por Vídeo', 'Prioridade no Suporte', 'Guia de Suplementação'],
     recommended: true,
     checkoutUrl: 'https://link.mercadopago.com.br/testegustavolima'
   },
   {
-    name: 'Anual',
-    price: '79,90',
-    period: '/mês',
-    features: ['Tudo do Plano Semestral', 'Maior Economia', 'Consultoria de Nutrição (Bônus)', 'Acesso Vitalício ao Grupo VIP'],
+    name: '180 DIAS',
+    price: '470,00',
+    pixPrice: '405,00',
+    period: '/total',
+    features: ['Tudo do Plano de 120 Dias', 'Maior Economia', 'Consultoria de Nutrição (Bônus)', 'Acesso Vitalício ao Grupo VIP'],
     recommended: false,
     checkoutUrl: 'https://link.mercadopago.com.br/testegustavolima'
   }
@@ -279,7 +282,7 @@ const ProblemSolution: React.FC = () => {
           <div className="absolute -inset-4 bg-brand-purple/20 rounded-xl blur-xl"></div>
           <div className="relative">
             <img
-              src="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?q=80&w=1587&auto=format&fit=crop"
+              src="/assets/gustavo.jpg"
               alt="Gustavo Consignani Personal Trainer"
               className="relative rounded-xl shadow-2xl border border-white/10 transition-all duration-500 w-full aspect-[3/4] object-cover"
             />
@@ -411,6 +414,8 @@ const SocialProof: React.FC = () => {
 
 import { Checkout } from './components/Checkout';
 import { Payment } from './components/Payment';
+import { Success } from './components/Success';
+import { PaymentSimulator } from './components/PaymentSimulator';
 
 // ... (previous imports)
 
@@ -449,10 +454,17 @@ const Pricing: React.FC<{ onSelectPlan: (plan: Plan) => void }> = ({ onSelectPla
             )}
 
             <h3 className="text-2xl font-heading font-bold uppercase text-white mb-2">{plan.name}</h3>
-            <div className="flex items-baseline gap-1 mb-8">
-              <span className="text-sm text-gray-400">R$</span>
-              <span className="text-5xl font-bold text-white tracking-tighter">{plan.price}</span>
-              <span className="text-gray-500">{plan.period}</span>
+            <div className="flex flex-col mb-8">
+              <div className="flex items-baseline gap-1">
+                <span className="text-sm text-gray-400">R$</span>
+                <span className="text-5xl font-bold text-white tracking-tighter">{plan.price}</span>
+                <span className="text-gray-500">{plan.period}</span>
+              </div>
+              {plan.pixPrice && (
+                <div className="mt-2 text-sm font-medium text-green-400 bg-green-400/10 py-1 px-3 rounded-md w-fit">
+                  ou R$ {plan.pixPrice} no PIX
+                </div>
+              )}
             </div>
 
             <ul className="space-y-4 mb-8 flex-1">
@@ -557,7 +569,15 @@ const Footer: React.FC = () => {
 
 const App: React.FC = () => {
   const [selectedPlan, setSelectedPlan] = useState<Plan | null>(null);
-  const [view, setView] = useState<'LANDING' | 'CHECKOUT' | 'PAYMENT'>('LANDING');
+  const [view, setView] = useState<'LANDING' | 'CHECKOUT' | 'PAYMENT' | 'PAYMENT_SIMULATOR' | 'SUCCESS'>('LANDING');
+  const [paymentMethod, setPaymentMethod] = useState<'CARD' | 'PIX' | null>(null);
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    if (params.get('status') === 'approved' || params.get('payment_id')) {
+      setView('SUCCESS');
+    }
+  }, []);
 
   const handleSelectPlan = (plan: Plan) => {
     setSelectedPlan(plan);
@@ -570,29 +590,16 @@ const App: React.FC = () => {
     setView('LANDING');
   };
 
-  const handleSubscribe = () => {
-    if (selectedPlan && selectedPlan.checkoutUrl) {
-      window.open(selectedPlan.checkoutUrl, '_blank');
-    }
+  const handleSubscribe = (method: 'CARD' | 'PIX') => {
+    setPaymentMethod(method);
+    setView('PAYMENT_SIMULATOR');
   };
 
-  /*
-  // Internal Flow Disabled
-  const handeBackToLanding = () => {
-    setSelectedPlan(null);
-    setView('LANDING');
-  };
-
-  const handleGoToPayment = () => {
-    setView('PAYMENT');
+  const handlePaymentConfirm = () => {
+    setView('SUCCESS');
     window.scrollTo(0, 0);
   };
 
-  const handlePaymentSuccess = () => {
-    setView('LANDING');
-    setSelectedPlan(null);
-  };
-  */
 
   if (view === 'CHECKOUT' && selectedPlan) {
     return (
@@ -602,6 +609,20 @@ const App: React.FC = () => {
         onSubscribe={handleSubscribe}
       />
     );
+  }
+
+  if (view === 'PAYMENT_SIMULATOR' && paymentMethod) {
+    return (
+      <PaymentSimulator
+        method={paymentMethod}
+        onConfirm={handlePaymentConfirm}
+        onBack={() => setView('CHECKOUT')}
+      />
+    );
+  }
+
+  if (view === 'SUCCESS') {
+    return <Success />;
   }
 
   return (
