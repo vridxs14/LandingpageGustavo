@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Menu, X, Check, Star, ChevronDown, ChevronUp, ArrowRight, Instagram, MessageCircle, ShieldCheck, Smartphone, Target, User } from 'lucide-react';
+import { Menu, X, Check, Star, ChevronDown, ChevronUp, ArrowRight, Instagram, MessageCircle, ShieldCheck, Smartphone, Target, User, Lock, ClipboardList } from 'lucide-react';
 import { Button } from './components/Button';
 import { Section } from './components/Section';
 import { NavItem, Benefit, Testimonial, FAQItem, Plan } from './types';
@@ -14,26 +14,30 @@ const NAV_ITEMS: NavItem[] = [
   { label: 'Dúvidas', href: '#faq' },
 ];
 
-const BENEFITS: Benefit[] = [
+const HOW_IT_WORKS_STEPS = [
   {
-    title: 'Treino 100% Individualizado',
-    description: 'Esqueça as fichas genéricas de academia. Seu treino é montado especificamente para sua biotipo, rotina e objetivos.',
-    icon: User
+    number: '01',
+    title: 'Cadastro & Compra',
+    description: 'Tudo começa com seu cadastro seguro aqui no site. Ele é necessário para liberar a compra e garantir que você tenha acesso à área de membros futuramente.',
+    icon: Lock
   },
   {
-    title: 'App Exclusivo',
-    description: 'Acesse seus treinos na palma da mão com vídeos explicativos de cada exercício, contagem de descanso e carga.',
-    icon: Smartphone
+    number: '02',
+    title: 'Anamnese Completa',
+    description: 'Após o pagamento, você preenche a ficha técnica e envia suas fotos. É aqui que eu entendo suas lesões, rotina e o que você realmente quer mudar no seu corpo.',
+    icon: ClipboardList
   },
   {
-    title: 'Acompanhamento Real',
-    description: 'Suporte direto pelo WhatsApp para tirar dúvidas, corrigir movimentos e ajustar o planejamento quando necessário.',
+    number: '03',
+    title: 'Suporte no WhatsApp',
+    description: 'Enviou a ficha? Você será direcionado para o meu WhatsApp pessoal. Lá teremos um canal direto para tirar dúvidas durante todo o acompanhamento.',
     icon: MessageCircle
   },
   {
-    title: 'Resultados Acelerados',
-    description: 'Metodologia validada com mais de 500 alunos transformados. Otimize seu tempo e pare de desperdiçar esforço.',
-    icon: Target
+    number: '04',
+    title: 'Entrega no App MFIT',
+    description: 'Você baixa o aplicativo MFIT Personal. Assim que eu finalizar a montagem manual do seu treino, ele aparecerá lá e você recebe o aviso.',
+    icon: Smartphone
   }
 ];
 
@@ -142,7 +146,7 @@ const Header: React.FC = () => {
 
   return (
     <header className={`fixed w-full z-50 transition-all duration-300 ${scrolled || isOpen ? 'bg-[#09090b] border-b border-white/10' : 'bg-transparent'}`}>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
         <div className="flex justify-between items-center h-20">
           {/* Logo */}
           <div className="text-2xl font-heading font-bold italic tracking-tighter">
@@ -162,11 +166,12 @@ const Header: React.FC = () => {
           </nav>
 
           {/* CTA Button Header */}
-          <div className="hidden md:block">
+          {/* CTA Button Header - HIDDEN AS REQUESTED */}
+          {/* <div className="hidden md:block">
             <a href="#planos" className="text-brand-purple font-bold text-sm border border-brand-purple px-4 py-2 rounded hover:bg-brand-purple hover:text-white transition-all">
               ÁREA DO ALUNO
             </a>
-          </div>
+          </div> */}
 
           {/* Mobile Menu Button */}
           <div className="md:hidden">
@@ -234,7 +239,7 @@ const Hero: React.FC = () => {
             Pare de <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-purple to-purple-300">adivinhar</span> seu treino
           </h1>
 
-          <p className="text-gray-300 text-lg md:text-xl mb-8 leading-relaxed max-w-xl">
+          <p className="text-gray-300 text-lg md:text-xl mb-8 leading-[1.7] max-w-xl">
             Tenha a estratégia de um especialista por um valor 10x menor que um personal presencial.
             Chega de ir para a academia sem saber o que fazer.
           </p>
@@ -267,65 +272,61 @@ const Hero: React.FC = () => {
 const ProblemSolution: React.FC = () => {
   return (
     <Section id="sobre" className="bg-brand-dark">
-      {/* Mobile Header: Title + Intro only */}
-      <div className="md:hidden mb-8">
-        <h2 className="font-heading text-3xl font-bold uppercase mb-6 text-white">
-          Gustavo <span className="text-brand-purple">Consignani</span>
-        </h2>
-        <p className="text-gray-300 leading-relaxed">
-          Muito prazer! Sou formado em Educação Física e Especialista em Treinamento Esportivo.
-          Minha missão vai além de passar exercícios: eu transformo vidas através de resultados reais e sustentáveis.
-        </p>
-      </div>
+      {/* Mobile Header Removed */}
 
       <div className="grid md:grid-cols-2 gap-12 md:gap-24 items-center">
-        <div className="relative">
+        <div className="relative mx-auto w-full max-w-sm md:max-w-none"> {/* Centered on mobile, max-width limit */}
           <div className="absolute -inset-4 bg-brand-purple/20 rounded-xl blur-xl"></div>
-          <img
-            src="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?q=80&w=2070&auto=format&fit=crop"
-            alt="Gustavo Consignani Personal Trainer"
-            className="relative rounded-xl shadow-2xl border border-white/10 grayscale hover:grayscale-0 transition-all duration-500 w-full"
-          />
+          <div className="relative">
+            <img
+              src="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?q=80&w=1587&auto=format&fit=crop"
+              alt="Gustavo Consignani Personal Trainer"
+              className="relative rounded-xl shadow-2xl border border-white/10 transition-all duration-500 w-full aspect-[3/4] object-cover"
+            />
+            {/* Gradient Overlay for seamless overlap */}
+            <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-brand-dark to-transparent rounded-b-xl z-20 md:hidden"></div>
+          </div>
         </div>
 
         <div>
-          {/* Desktop Title */}
-          <h2 className="font-heading text-3xl md:text-5xl font-bold uppercase mb-6 text-white hidden md:block">
+          {/* Title - Visible on all devices */}
+          {/* Negative margin on mobile to pull title up over the image gradient */}
+          <h2 className="relative z-30 font-heading text-3xl md:text-5xl font-bold uppercase mb-10 text-white -mt-16 md:mt-0 text-center md:text-left drop-shadow-lg">
             Gustavo <span className="text-brand-purple">Consignani</span>
           </h2>
 
-          <div className="space-y-6 text-gray-300 leading-relaxed">
-            {/* Desktop Intro */}
-            <p className="hidden md:block">
+          <div className="space-y-6 text-gray-300 leading-loose text-center md:text-left">
+            {/* Intro - Visible on all devices */}
+            <p className="text-lg leading-loose">
               Muito prazer! Sou formado em Educação Física e Especialista em Treinamento Esportivo.
-              Minha missão vai além de passar exercícios: eu transformo vidas através de resultados reais e sustentáveis.
+              Minha missão vai além de passar exercícios: eu transformo vidas através de <strong className="text-white text-brand-purple">resultados reais e sustentáveis</strong>.
             </p>
-            <p>
+            <p className="leading-loose">
               Minha principal área de atuação é a <strong className="text-white">estética</strong>, mas sempre em harmonia com a saúde.
               Acredito que um corpo bonito não precisa (e não deve) custar o seu bem-estar.
               Meu foco é compartilhar estratégias que permitam a você, independente do nível, conquistar seus objetivos de forma eficiente.
             </p>
           </div>
 
-          <div className="mt-8 mb-8 border-l-4 border-brand-purple pl-6 py-4 bg-white/5 rounded-r-lg">
-            <p className="text-lg italic font-heading text-white">
+          <div className="my-10 border-l-4 border-brand-purple p-10 bg-white/5 rounded-r-lg">
+            <p className="text-lg italic font-normal text-white leading-loose">
               "Acredito que a jornada de cada pessoa é única. Meu compromisso é estar ao seu lado em cada etapa,
               oferecendo não só um treino, mas a motivação e a estratégia certa para resultados duradouros."
             </p>
           </div>
 
-          <p className="text-gray-300 leading-relaxed mb-8">
+          <p className="text-gray-300 leading-[1.7] mb-8">
             Meu propósito é simples: fazer com que você se sinta mais forte, confiante e satisfeito ao se olhar no espelho.
           </p>
 
-          <div className="flex gap-12 border-t border-white/10 pt-8">
-            <div>
-              <div className="text-3xl font-bold text-white mb-1">+200</div>
-              <div className="text-sm text-gray-400">Alunos Ativos</div>
+          <div className="flex justify-around border-t border-white/10 pt-8">
+            <div className="text-center">
+              <div className="text-4xl font-extrabold text-white mb-1">+200</div>
+              <div className="text-sm font-medium text-gray-400">Alunos Ativos</div>
             </div>
-            <div>
-              <div className="text-3xl font-bold text-white mb-1">100%</div>
-              <div className="text-sm text-gray-400">Personalizado</div>
+            <div className="text-center">
+              <div className="text-4xl font-extrabold text-white mb-1">100%</div>
+              <div className="text-sm font-medium text-gray-400">Personalizado</div>
             </div>
           </div>
         </div>
@@ -347,15 +348,24 @@ const Benefits: React.FC = () => {
       </div>
 
       <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-        {BENEFITS.map((benefit, index) => (
-          <div key={index} className="bg-brand-dark p-8 rounded-2xl border border-white/5 hover:border-brand-purple/50 transition-all duration-300 group">
-            <div className="bg-zinc-900 w-14 h-14 rounded-lg flex items-center justify-center mb-6 group-hover:bg-brand-purple group-hover:text-white transition-colors">
-              <benefit.icon size={28} />
+        {HOW_IT_WORKS_STEPS.map((step, index) => (
+          <div key={index} className="relative bg-black p-8 rounded-lg border border-white/5 hover:border-brand-purple/50 transition-all duration-300 group overflow-hidden">
+            {/* Background Number */}
+            <div className="absolute top-0 right-4 text-7xl font-bold text-white/15 font-heading pointer-events-none select-none group-hover:text-brand-purple/0 transition-colors">
+              {step.number}
             </div>
-            <h3 className="text-xl font-bold mb-3 text-white">{benefit.title}</h3>
-            <p className="text-sm text-gray-400 leading-relaxed">
-              {benefit.description}
-            </p>
+
+            <div className="relative z-10 flex flex-col h-full">
+              <div className="mb-6">
+                <step.icon size={32} className="text-brand-purple group-hover:scale-110 transition-transform duration-300" />
+              </div>
+
+              <h3 className="text-xl font-bold mb-4 text-brand-purple">{step.title}</h3>
+
+              <p className="text-gray-400 text-sm leading-relaxed">
+                {step.description}
+              </p>
+            </div>
           </div>
         ))}
       </div>
@@ -384,7 +394,7 @@ const SocialProof: React.FC = () => {
             <div className="flex items-center gap-1 text-brand-green mb-4">
               {[...Array(5)].map((_, i) => <Star key={i} size={16} fill="currentColor" />)}
             </div>
-            <p className="text-gray-300 mb-6 italic text-sm leading-relaxed">{t.text}</p>
+            <p className="text-gray-300 mb-6 italic text-sm leading-[1.7]">{t.text}</p>
             <div className="flex items-center gap-4 border-t border-white/10 pt-4">
               <img src={t.image} alt={t.name} className="w-12 h-12 rounded-full object-cover border-2 border-brand-green" />
               <div>
@@ -428,7 +438,7 @@ const Pricing: React.FC<{ onSelectPlan: (plan: Plan) => void }> = ({ onSelectPla
           <div
             key={index}
             className={`rounded-2xl p-8 border flex flex-col relative transition-transform hover:-translate-y-2 ${plan.recommended
-              ? 'bg-zinc-900 border-brand-purple shadow-[0_0_30px_rgba(176,38,255,0.15)] md:-mt-8 md:mb-8'
+              ? 'bg-zinc-900 border-brand-purple shadow-[0_0_30px_rgba(176,38,255,0.15)] md:-mt-8 md:mb-8 order-first md:order-none'
               : 'bg-brand-dark border-white/10'
               }`}
           >
@@ -456,6 +466,7 @@ const Pricing: React.FC<{ onSelectPlan: (plan: Plan) => void }> = ({ onSelectPla
 
             <Button
               fullWidth
+              className="mt-auto"
               variant={plan.recommended ? 'primary' : 'outline'}
               onClick={() => onSelectPlan(plan)}
             >
@@ -483,7 +494,7 @@ const FAQ: React.FC = () => {
           </p>
         </div>
 
-        <div className="space-y-4">
+        <div className="space-y-6">
           {FAQS.map((faq, index) => (
             <div
               key={index}
@@ -505,7 +516,7 @@ const FAQ: React.FC = () => {
                 className={`transition-all duration-300 ease-in-out overflow-hidden ${openIndex === index ? 'max-h-40 opacity-100' : 'max-h-0 opacity-0'
                   }`}
               >
-                <div className="p-6 pt-0 text-gray-400 text-sm leading-relaxed">
+                <div className="p-6 pt-0 text-gray-400 text-sm leading-[1.7]">
                   {faq.answer}
                 </div>
               </div>
