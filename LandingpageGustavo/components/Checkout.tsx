@@ -16,6 +16,9 @@ export const Checkout: React.FC<CheckoutProps> = ({ plan, onBack, onSubscribe })
 
     const getValidityPeriod = (planName: string) => {
         const name = planName.toLowerCase();
+        if (name.includes('60 dias')) return '60 dias';
+        if (name.includes('120 dias')) return '120 dias';
+        if (name.includes('180 dias')) return '180 dias';
         if (name.includes('trimestral')) return '90 dias';
         if (name.includes('semestral')) return '180 dias';
         if (name.includes('anual')) return '365 dias';

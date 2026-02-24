@@ -10,7 +10,7 @@ import gustavoImage from './assets/gustavo.jpg';
 const NAV_ITEMS: NavItem[] = [
   { label: 'Home', href: '#home' },
   { label: 'Sobre Mim', href: '#sobre' },
-  { label: 'Benefícios', href: '#beneficios' },
+  { label: 'Como Funciona', href: '#beneficios' },
   { label: 'Planos', href: '#planos' },
   { label: 'Dúvidas', href: '#faq' },
 ];
@@ -220,7 +220,7 @@ const Header: React.FC = () => {
 
 const Hero: React.FC = () => {
   return (
-    <div id="home" className="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden">
+    <div id="home" className="relative h-[100dvh] min-h-screen flex items-center justify-center pt-20 overflow-hidden">
       {/* Background Image with Overlay */}
       <div className="absolute inset-0 z-0">
         <img
@@ -234,36 +234,36 @@ const Hero: React.FC = () => {
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
         <div className="max-w-3xl">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-purple/10 border border-brand-purple/20 text-brand-purple text-xs font-bold uppercase tracking-widest mb-6">
-            <span className="w-2 h-2 rounded-full bg-brand-purple animate-pulse"></span>
+          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-brand-purple/10 border border-brand-purple/20 text-brand-purple text-[10px] md:text-xs font-bold uppercase tracking-widest mb-4 md:mb-6">
+            <span className="w-1.5 h-1.5 md:w-2 md:h-2 rounded-full bg-brand-purple animate-pulse"></span>
             Vagas abertas para consultoria
           </div>
 
-          <h1 className="font-heading text-5xl md:text-7xl lg:text-8xl font-bold uppercase leading-tight text-white mb-6">
+          <h1 className="font-heading text-5xl md:text-7xl lg:text-8xl font-bold uppercase leading-[1.1] text-white mb-4 md:mb-6">
             Pare de <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-purple to-purple-300">adivinhar</span> seu treino
           </h1>
 
-          <p className="text-gray-300 text-lg md:text-xl mb-8 leading-[1.7] max-w-xl">
+          <p className="text-gray-300 text-base md:text-xl mb-6 md:mb-8 leading-[1.6] max-w-xl">
             Tenha a estratégia de um especialista por um valor 10x menor que um personal presencial.
             Chega de ir para a academia sem saber o que fazer.
           </p>
 
-          <div className="flex flex-col sm:flex-row gap-4">
-            <Button onClick={() => document.getElementById('planos')?.scrollIntoView({ behavior: 'smooth' })}>
+          <div className="flex flex-col sm:flex-row gap-3 md:gap-4 w-full sm:w-auto">
+            <Button onClick={() => document.getElementById('planos')?.scrollIntoView({ behavior: 'smooth' })} className="w-full sm:w-auto">
               Quero Minha Estratégia
             </Button>
-            <Button variant="outline" onClick={() => document.getElementById('sobre')?.scrollIntoView({ behavior: 'smooth' })}>
+            <Button variant="outline" onClick={() => document.getElementById('sobre')?.scrollIntoView({ behavior: 'smooth' })} className="w-full sm:w-auto">
               Conhecer o Método
             </Button>
           </div>
 
-          <div className="mt-12 flex items-center gap-8 text-sm font-medium text-gray-400">
-            <div className="flex items-center gap-2">
-              <ShieldCheck className="text-brand-purple" size={20} />
+          <div className="mt-8 md:mt-12 flex items-center justify-center sm:justify-start gap-6 md:gap-8 text-[13px] md:text-sm font-medium text-gray-400">
+            <div className="flex items-center gap-1.5 md:gap-2">
+              <ShieldCheck className="text-brand-purple" size={18} />
               <span>Compra Segura</span>
             </div>
-            <div className="flex items-center gap-2">
-              <Star className="text-brand-purple" size={20} />
+            <div className="flex items-center gap-1.5 md:gap-2">
+              <Star className="text-brand-purple" size={18} />
               <span>+500 Alunos</span>
             </div>
           </div>
@@ -275,7 +275,7 @@ const Hero: React.FC = () => {
 
 const ProblemSolution: React.FC = () => {
   return (
-    <Section id="sobre" className="bg-brand-dark">
+    <Section id="sobre" className="bg-brand-dark !pt-0 md:!pt-12">
       {/* Mobile Header Removed */}
 
       <div className="grid md:grid-cols-2 gap-12 md:gap-24 items-center">
@@ -556,7 +556,7 @@ const Footer: React.FC = () => {
         </div>
 
         <div className="flex items-center gap-6">
-          <a href="#" className="text-gray-400 hover:text-brand-purple transition-colors">
+          <a href="https://www.instagram.com/gustavoconsignani/" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-brand-purple transition-colors">
             <Instagram size={24} />
           </a>
           <a href="#" className="text-gray-400 hover:text-brand-purple transition-colors">
